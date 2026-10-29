@@ -1,4 +1,4 @@
--- Pluma V1 Premium | Military Army Tycoon | Delta
+-- Pluma V1 Premium AI | Military Army Tycoon | Delta
 if not game:IsLoaded() then game.Loaded:Wait() end
 task.wait(1)
 getgenv().Pluma = {}
@@ -30,7 +30,16 @@ plumaGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 plumaGui.DisplayOrder = 999
 plumaGui.Parent = player.PlayerGui
 
--- Премиум Аниме Палитра
+local Config = {
+    aimOn=false, aimPlayers=true, aimBots=true, wallCheck=true, smartTargets=true, autoPriority=true, aimMemory=true,
+    torsoFallback=true, adaptiveSmooth=true, triggerBot=false, autoReload=false, aimVehicles=false, aimPreset="fast",
+    boxEsp=false, lineEsp=false, nickEsp=false, hpBar=false, adminEsp=false, botEsp=false, tracer=false, chams=false, distEsp=false, lootEsp=false, teamCheck=true, zoneEsp=false,
+    fullbright=false, noFog=false, noclip=false, fastInteract=false,
+    antiRagdoll=false, antiAfk=false, antiKick=true, autoRejoin=false,
+    lootBaseRadius=250, lootDrawRadius=600,
+    aimFov=250
+}
+
 local C = {
     bg=Color3.fromRGB(10, 10, 15), side=Color3.fromRGB(20, 15, 30), card=Color3.fromRGB(35, 25, 45),
     accent=Color3.fromRGB(255, 50, 150), accent2=Color3.fromRGB(50, 200, 255),
@@ -60,7 +69,7 @@ local wmc = Instance.new("UICorner"); wmc.CornerRadius = UDim.new(0,8); wmc.Pare
 local wms = Instance.new("UIStroke"); wms.Color = C.accent2; wms.Thickness = 1; wms.Transparency = 0.4; wms.Parent = watermark
 local wmLabel = Instance.new("TextLabel"); wmLabel.Size = UDim2.new(1,-12,1,0); wmLabel.Position = UDim2.new(0,8,0,0); wmLabel.BackgroundTransparency = 1; wmLabel.Text = "Pluma V1 Premium AI"; wmLabel.TextColor3 = C.accent2; wmLabel.TextSize = 11; wmLabel.Font = Enum.Font.GothamBold; wmLabel.TextXAlignment = Enum.TextXAlignment.Left; wmLabel.Parent = watermark
 
--- === ПЛАВАЮЩАЯ КНОПКА АИМА (Anime Style) ===
+-- === ПЛАВАЮЩАЯ КНОПКА АИМА ===
 local aimFab = Instance.new("TextButton")
 aimFab.Size = UDim2.new(0, 60, 0, 60)
 aimFab.Position = UDim2.new(0, 20, 1, -130)
@@ -149,7 +158,7 @@ UIS.InputChanged:Connect(function(input)
     end
 end)
 
--- === ОСНОВНОЙ ИНТЕРФЕЙС (Anime Premium) ===
+-- === ОСНОВНОЙ ИНТЕРФЕЙС ===
 local main = Instance.new("Frame"); main.Size = UDim2.new(0,470,0,440); main.Position = UDim2.new(0,60,0,60); main.BackgroundColor3 = C.bg; main.BorderSizePixel = 0; main.Active = true; main.ClipsDescendants = true; main.Parent = plumaGui
 local mc = Instance.new("UICorner"); mc.CornerRadius = UDim.new(0,16); mc.Parent = main
 local ms = Instance.new("UIStroke"); ms.Color = C.accent; ms.Thickness = 1.5; ms.Transparency = 0.3; ms.Parent = main
@@ -720,7 +729,7 @@ local function showMain() main.Visible = true; fab.Visible = false end
 closeBtn.MouseButton1Click:Connect(hideMain)
 fab.MouseButton1Click:Connect(showMain)
 
--- === ЛОГИКА АИМА (Premium V1 AI) ===
+-- === ЛОГИКА АИМА ===
 local aimRunning = true
 local currentTarget = nil
 local cachedTargets = {list={}, time=0}
@@ -1166,7 +1175,7 @@ makeAction(pageUtil, "⟳", "Server Hop", 7, function()
         local ok, res = pcall(function()
             local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Asc&limit=100", game.PlaceId)
             local data = HttpService:JSONDecode(game:HttpGet(url))
-            for _, srv in ipairs(data.data or {}) do if srv.id ~= game.JobId and srv.playing < srv.maxPlayers then return srv.id end end
+            for _, srv in ipairs(data.servers or {}) do if srv.id ~= game.JobId and srv.playing < srv.maxPlayers then return srv.id end end
         end)
         if ok and res then pcall(function() TeleportService:TeleportToPlaceInstance(game.PlaceId, res, player) end) end
     end)
