@@ -1,4 +1,4 @@
--- Pluma V1 Premium AI | Military Army Tycoon | Delta
+-- Pluma V1 Premium AI Final | Military Army Tycoon | Delta
 if not game:IsLoaded() then game.Loaded:Wait() end
 task.wait(1)
 getgenv().Pluma = {}
@@ -69,7 +69,7 @@ local wmc = Instance.new("UICorner"); wmc.CornerRadius = UDim.new(0,8); wmc.Pare
 local wms = Instance.new("UIStroke"); wms.Color = C.accent2; wms.Thickness = 1; wms.Transparency = 0.4; wms.Parent = watermark
 local wmLabel = Instance.new("TextLabel"); wmLabel.Size = UDim2.new(1,-12,1,0); wmLabel.Position = UDim2.new(0,8,0,0); wmLabel.BackgroundTransparency = 1; wmLabel.Text = "Pluma V1 Premium AI"; wmLabel.TextColor3 = C.accent2; wmLabel.TextSize = 11; wmLabel.Font = Enum.Font.GothamBold; wmLabel.TextXAlignment = Enum.TextXAlignment.Left; wmLabel.Parent = watermark
 
--- === ПЛАВАЮЩАЯ КНОПКА АИМА ===
+-- === ПЛАВАЮЩАЯ КНОПКА АИМА (Premium Aim) ===
 local aimFab = Instance.new("TextButton")
 aimFab.Size = UDim2.new(0, 60, 0, 60)
 aimFab.Position = UDim2.new(0, 20, 1, -130)
@@ -123,10 +123,10 @@ UIS.InputChanged:Connect(function(input)
     end
 end)
 
-local btnPlayers = Instance.new("TextButton"); btnPlayers.Size = UDim2.new(1,-20,0,30); btnPlayers.Position = UDim2.new(0,10,0,40); btnPlayers.BackgroundColor3 = C.card; btnPlayers.Text = "Aim Players: ON"; btnPlayers.TextColor3 = C.text; btnPlayers.Font = Enum.Font.Gotham; btnPlayers.TextSize = 11; btnPlayers.Parent = aimMenu
+local btnPlayers = Instance.new("TextButton"); btnPlayers.Size = UDim2.new(1,-20,0,30); btnPlayers.Position = UDim2.new(0,10,0,40); btnPlayers.BackgroundColor3 = C.card; btnPlayers.Text = "Aim Players: OFF"; btnPlayers.TextColor3 = C.text; btnPlayers.Font = Enum.Font.Gotham; btnPlayers.TextSize = 11; btnPlayers.Parent = aimMenu
 local bpc = Instance.new("UICorner"); bpc.CornerRadius = UDim.new(0,6); bpc.Parent = btnPlayers
 
-local btnBots = Instance.new("TextButton"); btnBots.Size = UDim2.new(1,-20,0,30); btnBots.Position = UDim2.new(0,10,0,80); btnBots.BackgroundColor3 = C.card; btnBots.Text = "Aim Bots: ON"; btnBots.TextColor3 = C.text; btnBots.Font = Enum.Font.Gotham; btnBots.TextSize = 11; btnBots.Parent = aimMenu
+local btnBots = Instance.new("TextButton"); btnBots.Size = UDim2.new(1,-20,0,30); btnBots.Position = UDim2.new(0,10,0,80); btnBots.BackgroundColor3 = C.card; btnBots.Text = "Aim Bots: OFF"; btnBots.TextColor3 = C.text; btnBots.Font = Enum.Font.Gotham; btnBots.TextSize = 11; btnBots.Parent = aimMenu
 local bbc = Instance.new("UICorner"); bbc.CornerRadius = UDim.new(0,6); bbc.Parent = btnBots
 
 local fovLbl = Instance.new("TextLabel"); fovLbl.Size = UDim2.new(1,-20,0,18); fovLbl.Position = UDim2.new(0,10,0,120); fovLbl.BackgroundTransparency = 1; fovLbl.Text = "FOV: 250"; fovLbl.TextColor3 = C.sub; fovLbl.Font = Enum.Font.Gotham; fovLbl.TextSize = 11; fovLbl.TextXAlignment = Enum.TextXAlignment.Left; fovLbl.Parent = aimMenu
@@ -158,7 +158,7 @@ UIS.InputChanged:Connect(function(input)
     end
 end)
 
--- === ОСНОВНОЙ ИНТЕРФЕЙС ===
+-- === ОСНОВНОЙ ИНТЕРФЕЙС (Anime Premium) ===
 local main = Instance.new("Frame"); main.Size = UDim2.new(0,470,0,440); main.Position = UDim2.new(0,60,0,60); main.BackgroundColor3 = C.bg; main.BorderSizePixel = 0; main.Active = true; main.ClipsDescendants = true; main.Parent = plumaGui
 local mc = Instance.new("UICorner"); mc.CornerRadius = UDim.new(0,16); mc.Parent = main
 local ms = Instance.new("UIStroke"); ms.Color = C.accent; ms.Thickness = 1.5; ms.Transparency = 0.3; ms.Parent = main
@@ -168,7 +168,7 @@ bgImage.Size = UDim2.new(1, 0, 1, 0)
 bgImage.BackgroundTransparency = 1
 bgImage.Image = "rbxassetid://7724672362" 
 bgImage.ScaleType = Enum.ScaleType.Crop
-bgImage.ImageTransparency = 0.65
+bgImage.ImageTransparency = 0.55
 bgImage.Parent = main
 local bic = Instance.new("UICorner"); bic.CornerRadius = UDim.new(0,16); bic.Parent = bgImage
 
@@ -979,12 +979,12 @@ RunService.RenderStepped:Connect(function(dt)
 
     if currentTarget and currentlyFiring then
         local velocity = currentTarget.head.AssemblyLinearVelocity or Vector3.zero
-        local aimPos = currentTarget.head.Position + (velocity * 0.15)
+        local aimPos = currentTarget.head.Position + (velocity * 0.18)
         
         local curCF = cam.CFrame
         local goalCF = CFrame.new(curCF.Position, aimPos)
         
-        local smoothFactor = 1 - math.exp(-18 * dt) 
+        local smoothFactor = 1 - math.exp(-20 * dt) 
         cam.CFrame = curCF:Lerp(goalCF, smoothFactor)
     end
 end)
@@ -1175,7 +1175,7 @@ makeAction(pageUtil, "⟳", "Server Hop", 7, function()
         local ok, res = pcall(function()
             local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Asc&limit=100", game.PlaceId)
             local data = HttpService:JSONDecode(game:HttpGet(url))
-            for _, srv in ipairs(data.servers or {}) do if srv.id ~= game.JobId and srv.playing < srv.maxPlayers then return srv.id end end
+            for _, srv in ipairs(data.data or {}) do if srv.id ~= game.JobId and srv.playing < srv.maxPlayers then return srv.id end end
         end)
         if ok and res then pcall(function() TeleportService:TeleportToPlaceInstance(game.PlaceId, res, player) end) end
     end)
